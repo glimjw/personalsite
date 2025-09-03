@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerald Lim</title>
+    <meta name="description" content="Gerald Lim's personal webpage showcasing his portfolio and projects.">
+    <meta name="keywords" content="Gerald Lim, portfolio, projects, web developer, software engineer">
+    <meta name="author" content="Gerald Lim">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        header {
+            /* background-color: #333; */
+            width: 100%;
+            top: 0;
+        }
+        body {
+            /* background-image: url('../assets/homepage_background.jpg'); */
+            background-size: cover;
+            background-color: black;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #app {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #848884;
+        }
+        .title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .content {
+            font-size: large;
+            padding: 30px 0px;
+            background-color: #848884;
+            backdrop-filter: blur(100px);
+            text-align: center;
+        }
+       .boxes-container {
+            width: 100%;
+            display: flex;
+            gap: 20px;
+            /* margin-top: 20px; */
+            justify-content: center;  /* center boxes horizontally */
+            align-items: stretch;     /* equal height */
+        }
+
+        .info-box {
+            flex: 1;                  /* all boxes take equal width */
+            background-color: rgba(113, 121, 126, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            color: aliceblue;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;  /* stack h3 and p vertically */
+            justify-content: center; /* center vertically */
+            align-items: center;     /* center horizontally */
+        }
+
+        .info-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        section {
+            padding: 150px;
+            margin: 0px;
+            background-color: #848884;
+            color: white;
+            min-height: 100vh;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            width: 100%;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+        }
+        /* #home {
+            background-image: url('./src/photo_2025-08-18_00-26-30.jpg');
+        } */
+        #about {
+            padding: 50px 150px;
+            background-color: #71797E;
+        }
+        #experience {
+            padding: 50px;
+        }
+        .exp-nav {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .exp-nav button {
+            padding: 10px 20px;
+            background: #71797E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .exp-nav button:hover {
+            background: #555b60;
+        }
+
+        .exp-content {
+            display: block;
+            background: rgba(113,121,126,0.9);
+            color: aliceblue;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+        .accordion-btn {
+            background: #f2f2f2;
+            cursor: pointer;
+            padding: 12px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            margin: 4px 0;
+            border-radius: 6px;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 10px 15px;
+            border-left: 2px solid #ccc;
+            margin-bottom: 8px;
+
+        }
+
+        .accordion-btn.active {
+            background: #ddd;
+        }
+        #projects {
+            padding: 50px 150px;
+            background-color: #71797E;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Include Vue.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.13/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <header class="header text-center">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="#">Gerald Lim</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+                <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+    </header>
+    <div id="app">
+        <div class="content">
+            <section id="home">
+                <h1 style="color: aliceblue;">Hi! I am Gerald Lim</h1>
+                <p style="color: aliceblue;">Welcome to my site!<br>Feel free to scroll down and learn more about my work!</p>
+                <div class="scroll-down">
+                    <a href="#about">&#8595;</a> <!-- ↓ arrow -->
+                </div>
+            </section>
+            <section id="about">
+                <!-- Container for the two boxes -->
+                <div class="boxes-container">
+                    <!-- Box 1 -->
+                    <div class="info-box">
+                        <h3>About Me</h3>
+                        <p>I am an Information Systems graduate from SMU, passionate about software development, IT operations, and business development.</p>
+                        <p>Proficient in web development and business analytics. Experienced in IT support and retail operations.</p>
+                    </div>
+                    <!-- Box 2 -->
+                    <div class="info-box">
+                        <img src="./src/self_portrait.jpg" alt="Profile Picture" class="img-fluid mb-3">
+                    </div>
+                </div>
+                <div class="scroll-down">
+                    <a href="#experience">&#8595;</a> <!-- ↓ arrow -->
+                </div>
+            </section>
+            <section id="experience">
+                <div class="experience-container">
+                    <!-- Mini nav bar -->
+                    <div class="exp-nav">
+                        <button onclick="showCompany('company1')">H&M</button>
+                        <button onclick="showCompany('company2')">WSG</button>
+                        <button onclick="showCompany('company3')">MyR</button>
+                        <button onclick="showCompany('company4')">UQ</button>
+                    </div>
+
+                    <!-- Company details -->
+                    <div id="company1" class="exp-content">
+                        <h2>Hennes & Mauritz (H&M)</h2>
+                        <p>Role: Sales Advisor (Part-Time)<br>Duration: 5 years from 2017 to 2024<br>(combined across multiple periods)<br>
+                        <h3>Main Responsibilities:</h3>
+                        <p>During my time at H&M, I gained extensive experience across multiple aspects of retail operations.<br> 
+                            I <strong>provided great customer service</strong>, through assisting customers with inquiries, and creating a positive shopping experience.<br>
+                            I also <strong>handled transactions </strong>efficiently and accurately as a cashier, while <strong>maintaining a tidy and organized department</strong><br>
+                            to create a pleasant shopping environment. In addition, I <strong>managed the fitting rooms</strong>, ensuring cleanliness and smooth customer flow.<br>
+                            I was actively involved in <strong>inventory management</strong>, including restocking and maintaining stock accuracy, as well as contributing to<br>
+                            <strong>visual merchandising </strong>by arranging displays to enhance store presentation. Beyond these operational tasks, I also <br>
+                            <strong>mentored new part-time staff</strong>, sharing knowledge on store processes and best practices in customer service.</p>
+                        <div class="accordion">
+                            <button class="accordion-btn">Waterway Point Outlet (Apr 2017 - Sep 2019)</button>
+                            <div class="accordion-content">
+                                <p>I have served as a Sales Advisor at the then-Waterway Point Outlet for 2.5 years.<br>
+                                Throughout my time there, I have gained valuable experience in customer service and retail operations.<br>
+                                I was entrusted by my managers to train some of the new part-timers, which helped me develop my leadership skills.<br>
+                                Furthermore, I took the initiative to carry out Visual Merchandising and Inventory Management tasks.</p>
+                                I left the Waterway Point Outlet in September 2019 due to my National Service enlistment in October 2019.<br>
+                            </div>
+
+                            <button class="accordion-btn">ION Orchard Outlet (Sep 2017)</button>
+                            <div class="accordion-content">
+                                <p>
+                                In September 2017, my store manager in the then-Waterway Point outlet gave me the opportunity to support<br>
+                                    the then-ION Orchard outlet with the launch of the H&M's cosmestic line, H&M Beauty Department, for 3 days.<br>
+                                    ION Orchard outlet is one of the top outlets in Singapore, so it was a valuable experience to understand<br>
+                                    how they operated their store, and the difference between the store located in the city<br>
+                                    and the heartland store like Waterway Point.
+                                </p>
+                            </div>
+
+                            <button class="accordion-btn">Tampines Mall Outlet (Sep 2018)</button>
+                            <div class="accordion-content">
+                                <p>In September 2018, I was given the opportunity to support the Tampines Mall Outlet,<br>
+                                    the only outlet in the Eastern region of Singapore.<br>
+                                    In my 3 days of support, I was mainly involved in assisting with the store operations<br>
+                                    and customer service during the busy period.<br>
+                                    This experience allowed me to adapt quickly to a new environment,<br>
+                                    and understand the dynamics of a different, yet similar, store setting.
+                                    </p>
+                            </div>
+
+                            <button class="accordion-btn">Orchard Building Flagship Outlet (Oct 2021 - Apr 2022)</button>
+                            <div class="accordion-content">
+                                <p>In October 2021, I decided to rejoin H&M during my first year of undergraduate studies.<br>
+                                    Working in Orchard Building Flagship Outlet provided me with the opportunity to work in the biggest H&M store in Singapore.<br>
+                                    It was a brand new experience for me as the country was in the midst of the covid pandemic.<br>
+                                    On top of the daily store operation tasks such as customer service, cashiering, and inventory management,<br>
+                                    I also carried out Safe Entry tasks such as checking customers' vaccination status.<br>
+                                    Apart from that, I was working in the Ladies and H&M HOME departments, which are the front-facing departments of the store<br>
+                                    as both departments are located at the first floor of the store.<br>
+                                    Through the 6 months of working there, I have gained valuable experience in working in the flagship store.<br>
+                                </p>
+                            </div>
+
+                            <button class="accordion-btn">NEX Outlet (Sep 2022 - Apr 2023)</button>
+                            <div class="accordion-content">
+                                <p>In September 2022, I continued my stint with H&M in the NEX Outlet, where I continued to build on my retail experience.<br>
+                                    I was involved in various store operations, including customer service, cashiering, and inventory management.<br>
+                                    I was also given the opportunity to train new part-timers, which allowed me to further develop my leadership skills.<br>
+                                    This role allowed me to further develop my skills in a fast-paced retail environment.<br>
+                                    I left the NEX Outlet in April 2023 to embark on my Internship with Workforce Singapore (WSG).<br>
+                                </p>
+                            </div>
+
+                            <button class="accordion-btn">NEX Outlet (Dec 2023 - Dec 2024)</button>
+                            <div class="accordion-content">
+                                <p>In December 2023, I rejoined H&M in the NEX Outlet. As usual, I was involved in various store operations,<br>
+                                    including customer service, cashiering, and inventory management.<br>
+                                    As I hit my 5 years of service with H&M in May 2024, I was admitted into the H&M Incentive Program (HIP),<br>
+                                    which recognizes and rewards long-serving employees for their commitment and contributions to the company.<br>
+                                    This program made me feel valued and appreciated for my long service with the company.<br>
+                                    I left the company in December 2024 due to my final semester of studies.<br>
+                                    Overall, my time with H&M has been a rewarding experience, and I have learned a lot about retail operations and customer service.<br>
+                                    I have also developed my leadership skills through training new part-timers and being entrusted with various responsibilities.<br>
+                                    I am always open to new opportunities, and I look forward to rejoining H&M in the future if the opportunity arises.<br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="company2" class="exp-content hidden">
+                        <h2>Workforce Singapore (WSG)</h2>
+                        <p>Role: Intern (under Digital Tech Division)<br>Key contributions...</p>
+                    </div>
+
+                    <div id="company3" class="exp-content hidden">
+                        <h2>MyRepublic (MyR)</h2>
+                        <p>Role: IT Executive Intern<br>Key contributions...</p>
+                    </div>
+
+                    <div id="company4" class="exp-content hidden">
+                        <h2>Uniqlo (UQ)</h2>
+                        <p>Role: Store Internship Participant<br>Key contributions...</p>
+                    </div>
+                </div>
+                <a href="#projects">&#8595;</a> <!-- ↓ arrow -->
+            </section>
+            <section id="projects">
+                <a href="#contact">&#8595;</a> <!-- ↓ arrow -->
+            </section>
+            <section id="contact">Contact content</section>
+        </div>
+    </div>
+    <footer class="text-center">
+        <p>&copy; <span id="year"></span> Gerald Lim. All rights reserved.</p>
+    </footer>
+</body>
+<script>
+    // Set current year dynamically
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function showCompany(id) {
+        // Hide all contents
+        document.querySelectorAll('.exp-content').forEach(div => {
+            div.classList.add('hidden');
+        });
+
+        // Show the one clicked
+        document.getElementById(id).classList.remove('hidden');
+    }
+    const accBtns = document.querySelectorAll(".accordion-btn");
+    accBtns.forEach(btn => {
+    btn.addEventListener("click", function() {
+        this.classList.toggle("active");
+        const content = this.nextElementSibling;
+        content.style.display = content.style.display === "block" ? "none" : "block";
+    });
+    });
+
+
+</script>
+</html> 
